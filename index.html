@@ -795,6 +795,13 @@
 
   /* ---- RESPONSIVE ---- */
   @media (max-width: 900px) {
+    #mobile-menu {
+  display: flex !important; /* Phone par 3 lines dikhayega */
+}
+
+.nav-links.active {
+  display: flex !important; /* Button dabane par menu niche khulega */
+}
     .nav-links { display: none; }
     .footer-top { grid-template-columns: 1fr 1fr; }
     .hero-stats { gap: 2rem; }
@@ -840,7 +847,13 @@
 
 <!-- NAV -->
 <nav>
+
   <div class="logo">skill<span>r</span></div>
+  <div class="menu-toggle" id="mobile-menu" style="cursor:pointer; display:none; flex-direction:column; gap:5px; margin-left: auto;">
+  <span style="display:block; width:25px; height:2px; background:white;"></span>
+  <span style="display:block; width:25px; height:2px; background:white;"></span>
+  <span style="display:block; width:25px; height:2px; background:white;"></span>
+</div>
   <ul class="nav-links">
     <li><a href="categories.html">Browse</a></li>
     <li><a href="freelancers.html">Talent</a></li>
@@ -1045,6 +1058,12 @@
       tab.classList.add('active');
     });
   });
+  const menuBtn = document.querySelector('#mobile-menu');
+const navLinks = document.querySelector('.nav-links');
+
+menuBtn.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
 </script>
 </body>
 </html>
