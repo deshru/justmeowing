@@ -795,17 +795,38 @@
 
   /* ---- RESPONSIVE ---- */
   @media (max-width: 900px) {
-    #mobile-menu {
-  display: flex !important; /* Phone par 3 lines dikhayega */
-}
-
-.nav-links.active {
-  display: flex !important; /* Button dabane par menu niche khulega */
-}
-    .nav-links { display: none; }
-    .footer-top { grid-template-columns: 1fr 1fr; }
-    .hero-stats { gap: 2rem; }
+  nav {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0 5% !important;
   }
+
+  .nav-cta {
+    display: none !important; /* Phone par Log in/Get Started ko chhupa dein taaki jagah bane */
+  }
+
+  #mobile-menu {
+    display: flex !important;
+    order: 2; /* Ise right side mein rakhega */
+  }
+  .nav-links {
+    display: none; /* Default mein chhupa rahega */
+    flex-direction: column;
+    position: absolute;
+    top: 72px; /* Nav bar ki height ke niche */
+    left: 0;
+    width: 100%;
+    background: var(--surface);
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+  }
+
+  .nav-links.active {
+    display: flex !important; /* Button dabne par dikhega */
+  }
+}
   @media (max-width: 600px) {
     .footer-top { grid-template-columns: 1fr; }
     .hero-stats { gap: 1.5rem; }
