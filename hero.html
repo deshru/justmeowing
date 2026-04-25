@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Skillr — Hero Section</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0f; --surface: #111118; --card: #16161e; --border: #2a2a38;
+    --accent: #ff5c35; --accent2: #ffa500; --gold: #f5c842;
+    --text: #f0ede8; --muted: #7a7a95; --green: #22d68a;
+    --font-display: 'Syne', sans-serif; --font-serif: 'Instrument Serif', serif; --font-body: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 15px; line-height: 1.6; overflow-x: hidden; }
+  body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:1000; opacity:0.35; }
+
+  /* NAV */
+  nav { display:flex; align-items:center; justify-content:space-between; padding:0 5%; height:72px; position:fixed; top:0; left:0; right:0; z-index:500; background:rgba(10,10,15,0.85); backdrop-filter:blur(18px); border-bottom:1px solid var(--border); animation:fadeDown 0.6s ease both; }
+  .logo { font-family:var(--font-display); font-size:1.5rem; font-weight:800; letter-spacing:-0.03em; color:var(--text); text-decoration:none; }
+  .logo span { color:var(--accent); }
+  .btn { display:inline-flex; align-items:center; padding:0.55rem 1.2rem; border-radius:8px; font-family:var(--font-display); font-size:0.8rem; font-weight:600; cursor:pointer; text-decoration:none; transition:all 0.2s; border:none; letter-spacing:0.02em; }
+  .btn-ghost { background:transparent; color:var(--muted); border:1px solid var(--border); }
+  .btn-ghost:hover { color:var(--text); border-color:var(--muted); }
+  .btn-primary { background:var(--accent); color:#fff; }
+  .btn-primary:hover { background:#ff7052; transform:translateY(-1px); box-shadow:0 8px 24px rgba(255,92,53,0.35); }
+  .btn-lg { padding:0.9rem 2rem; font-size:0.95rem; border-radius:10px; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding: 9rem 5% 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Animated grid background */
+  .hero-grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,92,53,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,92,53,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  .hero-glow { position:absolute; width:700px; height:700px; background:radial-gradient(circle, rgba(255,92,53,0.13) 0%, transparent 70%); top:-100px; right:-100px; pointer-events:none; }
+  .hero-glow2 { position:absolute; width:500px; height:500px; background:radial-gradient(circle, rgba(245,200,66,0.07) 0%, transparent 70%); bottom:0; left:-50px; pointer-events:none; }
+  .hero-glow3 { position:absolute; width:400px; height:400px; background:radial-gradient(circle, rgba(34,214,138,0.05) 0%, transparent 70%); bottom:100px; right:200px; pointer-events:none; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.4rem 1rem; background: rgba(255,92,53,0.1);
+    border: 1px solid rgba(255,92,53,0.3); border-radius: 100px;
+    font-size: 0.78rem; color: var(--accent); font-weight: 500;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .badge-dot { width:6px; height:6px; background:var(--accent); border-radius:50%; animation:pulse 2s infinite; }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 7.5vw, 7rem);
+    font-weight: 800; line-height: 1.0; letter-spacing: -0.04em; max-width: 920px;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  .hero h1 em { font-family: var(--font-serif); font-style: italic; color: var(--accent); font-weight: 400; }
+  .hero h1 .outline { -webkit-text-stroke: 2px rgba(240,237,232,0.25); color: transparent; }
+
+  .hero-sub {
+    font-size: 1.05rem; color: var(--muted); max-width: 520px;
+    margin-top: 1.5rem; line-height: 1.75;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .search-wrap {
+    display: flex; gap: 0.75rem; margin-top: 2.5rem; max-width: 560px; width: 100%;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+  .search-input {
+    flex: 1; padding: 0.9rem 1.2rem; background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border); border-radius: 10px; color: var(--text);
+    font-family: var(--font-body); font-size: 0.875rem; outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .search-input::placeholder { color: var(--muted); }
+  .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255,92,53,0.1); }
+
+  .popular-tags {
+    display: flex; align-items: center; gap: 0.6rem; margin-top: 1.2rem; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.45s ease both;
+  }
+  .popular-label { font-size: 0.75rem; color: var(--muted); }
+  .ptag {
+    padding: 0.25rem 0.7rem; border-radius: 100px; border: 1px solid var(--border);
+    font-size: 0.72rem; color: var(--muted); cursor: pointer; transition: all 0.2s;
+    background: rgba(255,255,255,0.03); text-decoration: none;
+  }
+  .ptag:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 5rem;
+    animation: fadeUp 0.7s 0.55s ease both;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+    width: 100%; max-width: 640px;
+  }
+  .stat-item { text-align: left; }
+  .stat-num { font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; color: var(--text); }
+  .stat-num span { color: var(--accent); }
+  .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+  /* Floating trust cards */
+  .trust-cards {
+    position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 1rem;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+  .trust-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 1rem 1.2rem; display: flex; align-items: center; gap: 0.75rem;
+    min-width: 220px; backdrop-filter: blur(10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+  .trust-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .trust-text { }
+  .trust-name { font-family: var(--font-display); font-size: 0.82rem; font-weight: 700; }
+  .trust-sub { font-size: 0.72rem; color: var(--muted); }
+  .trust-badge { margin-left: auto; padding: 0.2rem 0.5rem; background: rgba(34,214,138,0.1); color: #22d68a; border: 1px solid rgba(34,214,138,0.2); border-radius: 6px; font-size: 0.65rem; font-weight: 600; white-space: nowrap; }
+
+  @keyframes fadeDown { from { opacity:0; transform:translateY(-16px);} to { opacity:1; transform:translateY(0);} }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px);} to { opacity:1; transform:translateY(0);} }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+  @media (max-width: 1100px) { .trust-cards { display: none; } }
+  @media (max-width: 600px) {
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+    .stat-num { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">skill<span>r</span></a>
+  <div style="display:flex;gap:0.75rem;">
+    <a href="login.html" class="btn btn-ghost">Log in</a>
+    <a href="signup.html" class="btn btn-primary">Get Started →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-glow3"></div>
+
+  <div class="hero-badge">
+    <div class="badge-dot"></div>
+    12,000+ verified freelancers ready to work
+  </div>
+
+  <h1>Hire <em>world-class</em><br><span class="outline">talent,</span> instantly.</h1>
+
+  <p class="hero-sub">
+    Connect with top designers, developers, writers, and marketers who deliver exceptional work — fast, reliable, and affordable.
+  </p>
+
+  <div class="search-wrap">
+    <input class="search-input" type="text" placeholder="Try 'UI Designer', 'React Developer', 'Copywriter'…">
+    <button class="btn btn-primary btn-lg">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      Search
+    </button>
+  </div>
+
+  <div class="popular-tags">
+    <span class="popular-label">Popular:</span>
+    <a href="#" class="ptag">Logo Design</a>
+    <a href="#" class="ptag">Web Development</a>
+    <a href="#" class="ptag">Copywriting</a>
+    <a href="#" class="ptag">Video Editing</a>
+    <a href="#" class="ptag">SEO</a>
+    <a href="#" class="ptag">Mobile App</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num" id="stat1">0<span>+</span></div>
+      <div class="stat-label">Freelancers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat2">0<span>+</span></div>
+      <div class="stat-label">Projects Done</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat3">0<span>★</span></div>
+      <div class="stat-label">Avg Rating</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat4">0<span>%</span></div>
+      <div class="stat-label">Satisfaction</div>
+    </div>
+  </div>
+
+  <!-- Floating trust cards (desktop) -->
+  <div class="trust-cards">
+    <div class="trust-card">
+      <div class="trust-icon">🛡️</div>
+      <div class="trust-text">
+        <div class="trust-name">Money-Back Guarantee</div>
+        <div class="trust-sub">100% refund if unsatisfied</div>
+      </div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">⚡</div>
+      <div class="trust-text">
+        <div class="trust-name">Fast Matching</div>
+        <div class="trust-sub">Get proposals in minutes</div>
+      </div>
+      <div class="trust-badge">Live</div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">✅</div>
+      <div class="trust-text">
+        <div class="trust-name">Verified Talent</div>
+        <div class="trust-sub">Every freelancer is vetted</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Counter animation
+  function animateCounter(el, target, decimals=0, delay=0) {
+    setTimeout(() => {
+      const duration = 1800;
+      const start = performance.now();
+      const suffix = el.querySelector('span').textContent;
+      el.querySelector('span').remove();
+      const animate = (now) => {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const val = decimals > 0 ? (eased * target).toFixed(decimals) : Math.round(eased * target);
+        el.textContent = val;
+        const sp = document.createElement('span');
+        sp.textContent = suffix;
+        el.appendChild(sp);
+        if (t < 1) requestAnimationFrame(animate);
+      };
+      requestAnimationFrame(animate);
+    }, delay);
+  }
+
+  window.addEventListener('load', () => {
+    animateCounter(document.getElementById('stat1'), 12, 0, 600);
+    animateCounter(document.getElementById('stat2'), 48, 0, 700);
+    animateCounter(document.getElementById('stat3'), 4.9, 1, 800);
+    animateCounter(document.getElementById('stat4'), 98, 0, 900);
+    // fix labels
+    document.getElementById('stat1').innerHTML = '12k<span>+</span>';
+    document.getElementById('stat2').innerHTML = '48k<span>+</span>';
+  });
+</script>
+</body>
+</html>

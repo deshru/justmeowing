@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Skillr — Testimonials</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{--bg:#0a0a0f;--surface:#111118;--card:#16161e;--border:#2a2a38;--accent:#ff5c35;--accent2:#ffa500;--gold:#f5c842;--text:#f0ede8;--muted:#7a7a95;--green:#22d68a;--font-display:'Syne',sans-serif;--font-serif:'Instrument Serif',serif;--font-body:'DM Sans',sans-serif;}
+  html{scroll-behavior:smooth;}body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.6;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:0.35;}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:72px;position:sticky;top:0;z-index:500;background:rgba(10,10,15,0.9);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);}
+  .logo{font-family:var(--font-display);font-size:1.5rem;font-weight:800;letter-spacing:-0.03em;color:var(--text);text-decoration:none;}.logo span{color:var(--accent);}
+  .btn{display:inline-flex;align-items:center;padding:0.55rem 1.2rem;border-radius:8px;font-family:var(--font-display);font-size:0.8rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.2s;border:none;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border);}.btn-ghost:hover{color:var(--text);border-color:var(--muted);}
+  .btn-primary{background:var(--accent);color:#fff;}.btn-primary:hover{background:#ff7052;transform:translateY(-1px);}
+  .section-label{font-size:0.72rem;font-weight:600;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;}
+  .section-title{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin-bottom:1rem;}
+  .section-title em{font-family:var(--font-serif);font-style:italic;font-weight:400;color:var(--muted);}
+
+  /* TESTIMONIALS */
+  .t-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:7rem 5%;}
+  .t-header{text-align:center;margin-bottom:4rem;}
+  .t-header p{color:var(--muted);max-width:440px;margin:0.75rem auto 0;}
+
+  /* Overall rating bar */
+  .rating-overview{display:flex;justify-content:center;gap:4rem;margin-top:2.5rem;padding:2rem;background:var(--card);border:1px solid var(--border);border-radius:16px;max-width:600px;margin-left:auto;margin-right:auto;}
+  .rating-big{text-align:center;}
+  .rating-big-num{font-family:var(--font-display);font-size:4rem;font-weight:800;letter-spacing:-0.04em;color:var(--text);}
+  .rating-big-stars{color:var(--gold);font-size:1.2rem;letter-spacing:2px;}
+  .rating-big-count{font-size:0.75rem;color:var(--muted);margin-top:4px;}
+  .rating-bars{flex:1;max-width:280px;}
+  .rating-bar-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.4rem;}
+  .rating-bar-label{font-size:0.72rem;color:var(--muted);width:14px;text-align:right;flex-shrink:0;}
+  .rating-bar-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+  .rating-bar-fill{height:100%;border-radius:3px;background:var(--gold);transition:width 1s ease;}
+  .rating-bar-pct{font-size:0.68rem;color:var(--muted);width:30px;flex-shrink:0;}
+
+  /* Main testimonial grid */
+  .t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem;}
+
+  .t-card{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:1.8rem;position:relative;transition:all 0.3s;
+    display:flex;flex-direction:column;
+  }
+  .t-card:hover{transform:translateY(-4px);border-color:rgba(255,92,53,0.3);box-shadow:0 16px 40px rgba(0,0,0,0.35);}
+  .t-card.featured{border-color:rgba(255,92,53,0.4);background:linear-gradient(135deg,#16161e,#1a1210);}
+  .t-card.featured::before{content:'Featured';position:absolute;top:-10px;left:1.5rem;font-size:0.65rem;font-weight:700;color:#fff;background:var(--accent);padding:0.2rem 0.6rem;border-radius:100px;letter-spacing:0.06em;}
+
+  .t-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.2rem;}
+  .t-stars{color:var(--gold);font-size:0.9rem;letter-spacing:1px;}
+  .t-verified{display:flex;align-items:center;gap:0.3rem;font-size:0.68rem;color:var(--green);font-weight:600;}
+
+  .t-quote-icon{font-size:3rem;color:var(--accent);font-family:Georgia,serif;line-height:1;opacity:0.5;margin-bottom:0.5rem;}
+  .t-text{font-family:var(--font-serif);font-style:italic;font-size:0.97rem;color:var(--text);line-height:1.75;margin-bottom:1.5rem;flex:1;}
+
+  .t-project-tag{display:inline-flex;align-items:center;gap:0.4rem;padding:0.3rem 0.7rem;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;font-size:0.72rem;color:var(--muted);margin-bottom:1.2rem;}
+
+  .t-author{display:flex;align-items:center;gap:0.75rem;padding-top:1rem;border-top:1px solid var(--border);}
+  .t-avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--border);}
+  .t-name{font-family:var(--font-display);font-size:0.88rem;font-weight:700;}
+  .t-role{font-size:0.72rem;color:var(--muted);}
+  .t-company{font-size:0.68rem;color:var(--accent);margin-top:1px;}
+
+  /* Carousel / slider row */
+  .t-slider{margin-top:4rem;overflow:hidden;position:relative;}
+  .t-slider::before,.t-slider::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none;}
+  .t-slider::before{left:0;background:linear-gradient(90deg,var(--surface),transparent);}
+  .t-slider::after{right:0;background:linear-gradient(-90deg,var(--surface),transparent);}
+  .t-slider-track{display:flex;gap:1.5rem;animation:sliderMove 40s linear infinite;width:max-content;}
+  .t-slider-card{
+    background:var(--card);border:1px solid var(--border);border-radius:14px;
+    padding:1.2rem 1.5rem;min-width:300px;max-width:300px;flex-shrink:0;
+  }
+  .t-slider-text{font-family:var(--font-serif);font-style:italic;font-size:0.88rem;color:var(--text);line-height:1.65;margin-bottom:1rem;}
+  .t-slider-author{display:flex;align-items:center;gap:0.6rem;}
+  .t-slider-avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;}
+  .t-slider-name{font-family:var(--font-display);font-size:0.78rem;font-weight:700;}
+  .t-slider-role{font-size:0.68rem;color:var(--muted);}
+
+  @keyframes sliderMove{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+
+  @media(max-width:1000px){.t-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:640px){.t-grid{grid-template-columns:1fr;}.rating-overview{flex-direction:column;align-items:center;gap:1.5rem;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="index.html">skill<span>r</span></a>
+  <div style="display:flex;gap:0.75rem;">
+    <a href="login.html" class="btn btn-ghost">Log in</a>
+    <a href="signup.html" class="btn btn-primary">Get Started</a>
+  </div>
+</nav>
+
+<section class="t-section">
+  <div class="t-header fade-in">
+    <div class="section-label">Client Love</div>
+    <div class="section-title">What clients <em>say</em></div>
+    <p>Over 48,000 projects delivered. Here's what the people we work with have to say.</p>
+
+    <div class="rating-overview">
+      <div class="rating-big">
+        <div class="rating-big-num">4.9</div>
+        <div class="rating-big-stars">★★★★★</div>
+        <div class="rating-big-count">48,000+ reviews</div>
+      </div>
+      <div class="rating-bars">
+        <div class="rating-bar-row"><div class="rating-bar-label">5</div><div class="rating-bar-track"><div class="rating-bar-fill" style="width:88%"></div></div><div class="rating-bar-pct">88%</div></div>
+        <div class="rating-bar-row"><div class="rating-bar-label">4</div><div class="rating-bar-track"><div class="rating-bar-fill" style="width:9%"></div></div><div class="rating-bar-pct">9%</div></div>
+        <div class="rating-bar-row"><div class="rating-bar-label">3</div><div class="rating-bar-track"><div class="rating-bar-fill" style="width:2%"></div></div><div class="rating-bar-pct">2%</div></div>
+        <div class="rating-bar-row"><div class="rating-bar-label">2</div><div class="rating-bar-track"><div class="rating-bar-fill" style="width:1%"></div></div><div class="rating-bar-pct">1%</div></div>
+        <div class="rating-bar-row"><div class="rating-bar-label">1</div><div class="rating-bar-track"><div class="rating-bar-fill" style="width:0.5%"></div></div><div class="rating-bar-pct">0.5%</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main testimonials -->
+  <div class="t-grid">
+    <div class="t-card featured fade-in">
+      <div class="t-top"><div class="t-stars">★★★★★</div><div class="t-verified">✓ Verified</div></div>
+      <div class="t-quote-icon">"</div>
+      <p class="t-text">Found an incredible designer within hours. The quality blew me away — she redesigned our entire product in just 2 weeks. Every screen was pixel-perfect. Worth every rupee.</p>
+      <div class="t-project-tag">🎨 Brand Identity Project · $340</div>
+      <div class="t-author">
+        <img class="t-avatar" src="https://i.pravatar.cc/150?img=68" alt="Vikram">
+        <div><div class="t-name">Vikram Nair</div><div class="t-role">CEO</div><div class="t-company">FinanceFlow</div></div>
+      </div>
+    </div>
+
+    <div class="t-card fade-in">
+      <div class="t-top"><div class="t-stars">★★★★★</div><div class="t-verified">✓ Verified</div></div>
+      <div class="t-quote-icon">"</div>
+      <p class="t-text">We've tried five different platforms. Skillr is the only one where the talent actually delivers what they promise. It's our go-to for all creative work now.</p>
+      <div class="t-project-tag">📊 Marketing Campaign · $890</div>
+      <div class="t-author">
+        <img class="t-avatar" src="https://i.pravatar.cc/150?img=20" alt="Emily">
+        <div><div class="t-name">Emily Watson</div><div class="t-role">CMO</div><div class="t-company">GrowthBase</div></div>
+      </div>
+    </div>
+
+    <div class="t-card fade-in">
+      <div class="t-top"><div class="t-stars">★★★★★</div><div class="t-verified">✓ Verified</div></div>
+      <div class="t-quote-icon">"</div>
+      <p class="t-text">The developer we hired built our MVP in 3 weeks. Clean code, clear communication, shipped on time. I've now hired him for three more projects. Absolutely fantastic.</p>
+      <div class="t-project-tag">💻 Web App Development · $2,400</div>
+      <div class="t-author">
+        <img class="t-avatar" src="https://i.pravatar.cc/150?img=53" alt="Rohan">
+        <div><div class="t-name">Rohan Gupta</div><div class="t-role">Founder</div><div class="t-company">BuildFast</div></div>
+      </div>
+    </div>
+
+    <div class="t-card fade-in">
+      <div class="t-top"><div class="t-stars">★★★★★</div><div class="t-verified">✓ Verified</div></div>
+      <div class="t-quote-icon">"</div>
+      <p class="t-text">Our SEO traffic went from 4K to 42K visits/month in 90 days. Rahul's strategy was data-driven, methodical, and he delivered weekly updates the whole time.</p>
+      <div class="t-project-tag">📈 SEO Strategy · $420</div>
+      <div class="t-author">
+        <img class="t-avatar" src="https://i.pravatar.cc/150?img=33" alt="Neha">
+        <div><div class="t-name">Neha Singh</div><div class="t-role">Marketing Head</div><div class="t-company">ShopEase</div></div>
+      </div>
+    </div>
+
+    <div class="t-card fade-in">
+      <div class="t-top"><div class="t-stars">★★★★★</div><div class="t-verified">✓ Verified</div></div>
+      <div class="t-quote-icon">"</div>
+      <p class="t-text">The explainer video Marcus made for us went viral on LinkedIn — 180K views. Cinematic quality at a fraction of agency cost. We ordered three more immediately.</p>
+      <div class="t-project-tag">🎬 Explainer Video · $650</div>
+      <div class="t-author">
+        <img class="t-avatar" src="https://i.pravatar.cc/150?img=4" alt="David">
+        <div><div class="t-name">David Lee</div><div class="t-role">Founder</div><div class="t-company">LaunchPad AI</div></div>
+      </div>
+    </div>
+
+    <div class="t-card fade-in">
+      <div class="t-top"><div class="t-stars">★★★★★</div><div class="t-verified">✓ Verified</div></div>
+      <div class="t-quote-icon">"</div>
+      <p class="t-text">Aisha integrated a full RAG pipeline into our product in under a week. She explained every architectural decision clearly. Best AI hire I've made.</p>
+      <div class="t-project-tag">🤖 AI Integration · $3,200</div>
+      <div class="t-author">
+        <img class="t-avatar" src="https://i.pravatar.cc/150?img=60" alt="James">
+        <div><div class="t-name">James Okonkwo</div><div class="t-role">CTO</div><div class="t-company">DataStack</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auto-scrolling mini testimonials -->
+  <div class="t-slider fade-in">
+    <div class="t-slider-track">
+      <div class="t-slider-card"><p class="t-slider-text">"Delivered on time, every time. The communication was top-notch."</p><div class="t-slider-author"><img class="t-slider-avatar" src="https://i.pravatar.cc/150?img=8" alt=""><div><div class="t-slider-name">Ananya R.</div><div class="t-slider-role">Product Manager</div></div></div></div>
+      <div class="t-slider-card"><p class="t-slider-text">"I've hired 12 freelancers on Skillr. Never had a bad experience."</p><div class="t-slider-author"><img class="t-slider-avatar" src="https://i.pravatar.cc/150?img=14" alt=""><div><div class="t-slider-name">Tom H.</div><div class="t-slider-role">Agency Owner</div></div></div></div>
+      <div class="t-slider-card"><p class="t-slider-text">"Saved us 60% compared to hiring a design agency. Same quality."</p><div class="t-slider-author"><img class="t-slider-avatar" src="https://i.pravatar.cc/150?img=35" alt=""><div><div class="t-slider-name">Priyanka M.</div><div class="t-slider-role">Startup Founder</div></div></div></div>
+      <div class="t-slider-card"><p class="t-slider-text">"The escrow system gives total peace of mind. Zero risk."</p><div class="t-slider-author"><img class="t-slider-avatar" src="https://i.pravatar.cc/150?img=62" alt=""><div><div class="t-slider-name">Omar K.</div><div class="t-slider-role">E-commerce Lead</div></div></div></div>
+      <div class="t-slider-card"><p class="t-slider-text">"Our app design was done in 10 days. Stunning Figma files."</p><div class="t-slider-author"><img class="t-slider-avatar" src="https://i.pravatar.cc/150?img=41" alt=""><div><div class="t-slider-name">Ravi B.</div><div class="t-slider-role">Tech Lead</div></div></div></div>
+      <div class="t-slider-card"><p class="t-slider-text">"I post a job and get 10+ proposals in under an hour. Insane."</p><div class="t-slider-author"><img class="t-slider-avatar" src="https://i.pravatar.cc/150?img=19" alt=""><div><div class="t-slider-name">Sarah T.</div><div class="t-slider-role">Brand Director</div></div></div></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="t-slider-card"><p class="t-slider-text">"Delivered on time, every time. The communication was top-notch."</p><div class="t-slider-author"><img class="t-slider-avatar" src="https://i.pravatar.cc/150?img=8" alt=""><div><div class="t-slider-name">Ananya R.</div><div class="t-slider-role">Product Manager</div></div></div></div>
+      <div class="t-slider-card"><p class="t-slider-text">"I've hired 12 freelancers on Skillr. Never had a bad experience."</p><div class="t-slider-author"><img class="t-slider-avatar" src="https://i.pravatar.cc/150?img=14" alt=""><div><div class="t-slider-name">Tom H.</div><div class="t-slider-role">Agency Owner</div></div></div></div>
+      <div class="t-slider-card"><p class="t-slider-text">"Saved us 60% compared to hiring a design agency. Same quality."</p><div class="t-slider-author"><img class="t-slider-avatar" src="https://i.pravatar.cc/150?img=35" alt=""><div><div class="t-slider-name">Priyanka M.</div><div class="t-slider-role">Startup Founder</div></div></div></div>
+      <div class="t-slider-card"><p class="t-slider-text">"The escrow system gives total peace of mind. Zero risk."</p><div class="t-slider-author"><img class="t-slider-avatar" src="https://i.pravatar.cc/150?img=62" alt=""><div><div class="t-slider-name">Omar K.</div><div class="t-slider-role">E-commerce Lead</div></div></div></div>
+      <div class="t-slider-card"><p class="t-slider-text">"Our app design was done in 10 days. Stunning Figma files."</p><div class="t-slider-author"><img class="t-slider-avatar" src="https://i.pravatar.cc/150?img=41" alt=""><div><div class="t-slider-name">Ravi B.</div><div class="t-slider-role">Tech Lead</div></div></div></div>
+      <div class="t-slider-card"><p class="t-slider-text">"I post a job and get 10+ proposals in under an hour. Insane."</p><div class="t-slider-author"><img class="t-slider-avatar" src="https://i.pravatar.cc/150?img=19" alt=""><div><div class="t-slider-name">Sarah T.</div><div class="t-slider-role">Brand Director</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*80); observer.unobserve(e.target); } });
+  },{threshold:0.1});
+  document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>

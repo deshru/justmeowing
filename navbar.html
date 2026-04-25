@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Skillr — Navbar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0f; --surface: #111118; --card: #16161e; --border: #2a2a38;
+    --accent: #ff5c35; --text: #f0ede8; --muted: #7a7a95;
+    --font-display: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
+  }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); min-height: 100vh; }
+
+  body::before {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: 0.3;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  /* NAVBAR */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 72px; position: sticky; top: 0; z-index: 500;
+    background: rgba(10,10,15,0.85); backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; color: var(--text); text-decoration: none; }
+  .logo span { color: var(--accent); }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; letter-spacing: 0.01em; }
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+  .nav-links a.active { position: relative; }
+  .nav-links a.active::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 2px; background: var(--accent); border-radius: 2px; }
+
+  .nav-cta { display: flex; gap: 0.75rem; align-items: center; }
+
+  .btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.55rem 1.2rem; border-radius: 8px; font-family: var(--font-display); font-size: 0.8rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.2s; letter-spacing: 0.02em; border: none; }
+  .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+  .btn-ghost:hover { color: var(--text); border-color: var(--muted); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #ff7052; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,92,53,0.35); }
+
+  /* notification dot */
+  .nav-notify {
+    position: relative; display: flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border);
+    background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s;
+    font-size: 1rem;
+  }
+  .nav-notify:hover { border-color: var(--muted); color: var(--text); }
+  .nav-notify::after {
+    content: ''; position: absolute; top: 6px; right: 7px;
+    width: 7px; height: 7px; background: var(--accent); border-radius: 50%;
+    border: 2px solid var(--bg);
+  }
+
+  /* hamburger for mobile */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--muted); border-radius: 2px; transition: all 0.3s; }
+
+  /* mobile menu */
+  .mobile-menu {
+    display: none; position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
+    background: rgba(10,10,15,0.97); backdrop-filter: blur(20px);
+    z-index: 490; flex-direction: column; align-items: center; justify-content: center;
+    gap: 2rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: var(--muted); text-decoration: none; letter-spacing: -0.03em; transition: color 0.2s; }
+  .mobile-menu a:hover { color: var(--text); }
+
+  /* search bar in nav */
+  .nav-search {
+    display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.8rem;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 8px;
+    cursor: pointer; transition: border-color 0.2s;
+  }
+  .nav-search:hover { border-color: var(--accent); }
+  .nav-search span { font-size: 0.78rem; color: var(--muted); }
+  .nav-search svg { color: var(--muted); }
+
+  /* demo page padding */
+  .demo-page { padding: 120px 5% 60px; }
+  .demo-label { font-family: var(--font-display); font-size: 0.72rem; font-weight: 600; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; }
+  .demo-title { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 0.75rem; }
+  .demo-sub { color: var(--muted); max-width: 480px; }
+
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 768px) {
+    .nav-links, .nav-search { display: none; }
+    .hamburger { display: flex; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">skill<span>r</span></a>
+
+  <ul class="nav-links">
+    <li><a href="categories.html">Browse</a></li>
+    <li><a href="freelancers.html">Talent</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="how-it-works.html">How It Works</a></li>
+  </ul>
+
+  <div class="nav-search">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <span>Search talent…</span>
+  </div>
+
+  <div class="nav-cta">
+    <div class="nav-notify">🔔</div>
+    <a href="login.html" class="btn btn-ghost">Log in</a>
+    <a href="signup.html" class="btn btn-primary">Get Started →</a>
+  </div>
+
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="categories.html">Browse</a>
+  <a href="freelancers.html">Talent</a>
+  <a href="projects.html">Projects</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="login.html" style="color:var(--accent)">Log in →</a>
+</div>
+
+<!-- Demo Content -->
+<div class="demo-page">
+  <div class="demo-label">Component Preview</div>
+  <h1 class="demo-title">Navbar Section</h1>
+  <p class="demo-sub">Sticky glassmorphism navbar with search, notification bell, mobile hamburger menu, and animated active link indicator.</p>
+</div>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    const spans = hamburger.querySelectorAll('span');
+    if (mobileMenu.classList.contains('open')) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+    } else {
+      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    }
+  });
+</script>
+</body>
+</html>
